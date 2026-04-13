@@ -1,0 +1,414 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.wrap{padding:1.5rem 1rem;font-family:var(--font-sans)}
+.header{display:flex;align-items:center;gap:10px;margin-bottom:1.5rem}
+.logo{width:36px;height:36px;background:#E07B39;border-radius:8px;display:flex;align-items:center;justify-content:center;color:white;font-size:18px;flex-shrink:0}
+.header h1{font-size:18px;font-weight:500;color:var(--color-text-primary)}
+.header p{font-size:12px;color:var(--color-text-secondary);margin-top:2px}
+.input-card{background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1rem 1.25rem;margin-bottom:1rem}
+.field-row{display:flex;gap:10px;margin-bottom:10px;align-items:flex-end;flex-wrap:wrap}
+.field{display:flex;flex-direction:column;gap:4px}
+.field label{font-size:11px;color:var(--color-text-secondary);font-weight:500}
+.field input{padding:6px 10px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);background:var(--color-background-primary);color:var(--color-text-primary);font-size:13px}
+.field input:focus{outline:none;border-color:#E07B39}
+.field-title{flex:2;min-width:160px}
+.field-dur{width:90px}
+textarea{width:100%;min-height:120px;font-size:12px;font-family:var(--font-mono);resize:vertical;padding:10px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);background:var(--color-background-primary);color:var(--color-text-primary);line-height:1.6}
+textarea:focus{outline:none;border-color:#E07B39}
+textarea::placeholder{color:var(--color-text-tertiary);font-family:var(--font-sans);font-size:12px}
+.btn-row{display:flex;gap:8px;align-items:center;margin-top:10px;flex-wrap:wrap}
+button{padding:7px 16px;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-secondary);background:var(--color-background-primary);color:var(--color-text-primary);font-size:13px;cursor:pointer}
+button:hover{background:var(--color-background-secondary)}
+.btn-primary{background:#E07B39;border-color:#E07B39;color:white}
+.btn-primary:hover{background:#c96a2e}
+.btn-danger{background:var(--color-background-danger);border-color:var(--color-border-danger);color:var(--color-text-danger)}
+.btn-green{background:var(--color-background-success);border-color:var(--color-border-success);color:var(--color-text-success)}
+.hint{font-size:11px;color:var(--color-text-secondary)}
+.movies-list{display:flex;flex-direction:column;gap:6px;margin-bottom:1rem}
+.movie-entry{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-left-width:3px;border-radius:var(--border-radius-md);padding:7px 12px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.movie-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.movie-entry .title{font-size:13px;font-weight:500;flex:1;color:var(--color-text-primary);min-width:80px}
+.movie-entry .meta{font-size:11px;color:var(--color-text-secondary)}
+.rm-btn{border:none;background:none;cursor:pointer;color:var(--color-text-tertiary);font-size:14px;padding:0 2px;margin-left:auto}
+.rm-btn:hover{color:var(--color-text-danger)}
+.sep{height:0.5px;background:var(--color-border-tertiary);margin:1rem 0}
+.table-scroll{overflow-x:auto;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg)}
+table{width:100%;border-collapse:collapse;font-size:12px;min-width:500px}
+thead th{background:var(--color-background-secondary);padding:8px 6px;text-align:center;border-bottom:0.5px solid var(--color-border-tertiary);color:var(--color-text-secondary);font-weight:500;white-space:nowrap;font-size:11px}
+thead th:first-child{text-align:left;padding-left:10px}
+tbody tr{border-bottom:0.5px solid var(--color-border-tertiary)}
+tbody tr:last-child{border-bottom:none}
+tbody td{padding:5px 4px;text-align:center;vertical-align:middle}
+tbody td:first-child{padding-left:10px;text-align:left;white-space:nowrap}
+.slot{border-radius:4px;padding:4px 5px;font-size:11px;font-weight:500;line-height:1.4}
+.slot .s-time{font-size:12px}.slot .s-end{font-size:10px;opacity:.75}
+.slot .s-gv{display:inline-block;font-size:9px;background:#E8F5E9;color:#2E7D32;padding:1px 4px;border-radius:3px;margin-top:2px}
+.slot .s-code{font-size:9px;opacity:.6;margin-top:1px}
+.slot-conflict{outline:2px solid #E53935;outline-offset:1px}
+.conflict-box{background:var(--color-background-danger);border:0.5px solid var(--color-border-danger);border-radius:var(--border-radius-md);padding:10px 14px;margin-top:10px;font-size:12px;color:var(--color-text-danger);line-height:1.7}
+.legend{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.pill{display:inline-flex;align-items:center;gap:5px;font-size:11px;padding:3px 9px;border-radius:12px}
+.slab{font-size:11px;font-weight:500;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px}
+.opt-section{margin-top:1.5rem}
+.opt-title{font-size:14px;font-weight:500;color:var(--color-text-primary);margin-bottom:4px}
+.opt-subtitle{font-size:11px;color:var(--color-text-secondary);margin-bottom:10px}
+.opt-cards{display:flex;flex-direction:column;gap:8px}
+.opt-card{border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);overflow:hidden}
+.opt-card-header{padding:10px 14px;display:flex;align-items:center;gap:10px;background:var(--color-background-secondary);cursor:pointer;user-select:none}
+.opt-card-header:hover{background:var(--color-background-primary)}
+.opt-rank{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;flex-shrink:0}
+.opt-info{flex:1}.opt-name{font-size:13px;font-weight:500;color:var(--color-text-primary)}
+.opt-meta{font-size:11px;color:var(--color-text-secondary);margin-top:1px}
+.opt-badge{font-size:11px;padding:3px 9px;border-radius:12px;font-weight:500;white-space:nowrap}
+.opt-body{padding:10px 14px;border-top:0.5px solid var(--color-border-tertiary);display:none}
+.opt-body.open{display:block}
+.opt-day{margin-bottom:8px}.opt-day-label{font-size:11px;font-weight:500;color:var(--color-text-secondary);margin-bottom:4px}
+.opt-slots{display:flex;flex-wrap:wrap;gap:6px}
+.opt-slot{border-radius:6px;padding:5px 10px;font-size:12px;font-weight:500;line-height:1.4}
+.opt-slot .os-time{font-size:13px}.opt-slot .os-end{font-size:10px;opacity:.7}
+.opt-slot .os-title{font-size:11px;margin-top:1px}
+.opt-slot .os-gv{font-size:9px;background:#E8F5E9;color:#2E7D32;padding:1px 4px;border-radius:3px;display:inline-block;margin-top:2px}
+.no-opt{text-align:center;padding:2rem;color:var(--color-text-tertiary);font-size:13px}
+.toggle-arrow{font-size:12px;color:var(--color-text-tertiary);transition:transform .2s}
+.toggle-arrow.open{transform:rotate(180deg)}
+
+/* 저장/불러오기 모달 */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;z-index:100}
+.modal{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1.25rem;width:min(480px,90vw);max-height:80vh;overflow-y:auto}
+.modal h2{font-size:15px;font-weight:500;color:var(--color-text-primary);margin-bottom:6px}
+.modal p{font-size:12px;color:var(--color-text-secondary);margin-bottom:10px;line-height:1.6}
+.modal textarea{min-height:160px;font-size:11px}
+.modal .btn-row{margin-top:10px}
+.toast{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%);background:#323232;color:white;font-size:13px;padding:8px 18px;border-radius:20px;z-index:200;opacity:0;transition:opacity .2s;pointer-events:none}
+.toast.show{opacity:1}
+
+/* 저장 상태 바 */
+.save-bar{display:flex;align-items:center;gap:8px;padding:8px 12px;background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);margin-bottom:1rem;flex-wrap:wrap}
+.save-bar span{font-size:12px;color:var(--color-text-secondary);flex:1}
+.save-bar .dot{width:7px;height:7px;border-radius:50%;background:#9E9E9E;flex-shrink:0}
+.save-bar .dot.saved{background:#43A047}
+</style>
+
+<div class="wrap">
+  <div class="header">
+    <div class="logo">🎪</div>
+    <div>
+      <h1>전주국제영화제 상영 일정 파서</h1>
+      <p>텍스트 붙여넣기 → 시간표 + 최적 관람 조합 자동 계산</p>
+    </div>
+  </div>
+
+  <!-- 저장 상태 바 -->
+  <div class="save-bar">
+    <div class="dot" id="saveDot"></div>
+    <span id="saveStatus">저장된 데이터 없음 — 내보내기 후 복사해두면 다음에 불러올 수 있어요</span>
+    <button onclick="openExport()" style="font-size:12px;padding:5px 12px">내보내기</button>
+    <button onclick="openImport()" style="font-size:12px;padding:5px 12px">불러오기</button>
+  </div>
+
+  <div class="input-card">
+    <div class="field-row">
+      <div class="field field-title">
+        <label>영화 제목</label>
+        <input type="text" id="movieTitle" placeholder="예) 죄와 벌">
+      </div>
+      <div class="field field-dur">
+        <label>상영 시간 (분)</label>
+        <input type="number" id="movieDur" placeholder="90" min="1" max="360">
+      </div>
+    </div>
+    <div class="slab">홈페이지 상영 일정 텍스트 붙여넣기</div>
+    <textarea id="rawInput" placeholder="전주국제영화제 홈페이지에서 상영 일정 블록을 복사해 붙여넣으세요.
+상영일자 / 상영시간 / 상영코드 / GV 여부를 자동으로 인식합니다."></textarea>
+    <div class="btn-row">
+      <button class="btn-primary" onclick="parseAndAdd()">+ 영화 추가</button>
+      <span class="hint">상영 시간(분) 입력 시 종료 시각과 겹침을 정확히 계산합니다</span>
+    </div>
+  </div>
+
+  <div id="moviesList" class="movies-list"></div>
+
+  <div id="schedWrap" style="display:none">
+    <div class="sep"></div>
+    <div style="font-size:14px;font-weight:500;color:var(--color-text-primary);margin-bottom:10px">날짜별 시간표</div>
+    <div class="table-scroll"><table><thead id="schedHead"></thead><tbody id="schedBody"></tbody></table></div>
+    <div id="legend" class="legend"></div>
+    <div id="conflictBox"></div>
+    <div class="sep"></div>
+    <div class="opt-section">
+      <div class="opt-title">최적 관람 조합</div>
+      <div class="opt-subtitle">겹침 없이 최대한 많은 영화를 볼 수 있는 조합 (상위 5개)</div>
+      <div id="optCards" class="opt-cards"></div>
+    </div>
+    <div class="btn-row" style="margin-top:1.5rem">
+      <button onclick="clearAll()" class="btn-danger">전체 초기화</button>
+    </div>
+  </div>
+</div>
+
+<!-- 내보내기 모달 -->
+<div class="modal-bg" id="exportModal" style="display:none" onclick="if(event.target===this)closeModals()">
+  <div class="modal">
+    <h2>데이터 내보내기</h2>
+    <p>아래 텍스트를 전체 복사해서 메모장이나 카카오톡 나에게 보내기 등에 저장해두세요.<br>다음에 '불러오기'에 붙여넣으면 그대로 복원돼요.</p>
+    <textarea id="exportText" readonly onclick="this.select()"></textarea>
+    <div class="btn-row">
+      <button class="btn-primary" onclick="copyExport()">전체 복사</button>
+      <button onclick="closeModals()">닫기</button>
+    </div>
+  </div>
+</div>
+
+<!-- 불러오기 모달 -->
+<div class="modal-bg" id="importModal" style="display:none" onclick="if(event.target===this)closeModals()">
+  <div class="modal">
+    <h2>데이터 불러오기</h2>
+    <p>이전에 내보낸 텍스트를 아래에 붙여넣고 불러오기를 눌러주세요.<br>현재 입력된 데이터에 <strong>추가</strong>됩니다. (중복 영화는 합쳐져요)</p>
+    <textarea id="importText" placeholder="내보내기 텍스트를 여기에 붙여넣으세요..."></textarea>
+    <div class="btn-row">
+      <button class="btn-primary" onclick="doImport()">불러오기</button>
+      <button onclick="closeModals()">취소</button>
+    </div>
+  </div>
+</div>
+
+<!-- 토스트 -->
+<div class="toast" id="toast"></div>
+
+<script>
+const COLORS=[
+  {bg:'#FFF3E0',text:'#BF360C',border:'#FFAB40'},
+  {bg:'#E3F2FD',text:'#0D47A1',border:'#64B5F6'},
+  {bg:'#F3E5F5',text:'#4A148C',border:'#CE93D8'},
+  {bg:'#E8F5E9',text:'#1B5E20',border:'#81C784'},
+  {bg:'#FCE4EC',text:'#880E4F',border:'#F48FB1'},
+  {bg:'#E0F7FA',text:'#006064',border:'#4DD0E1'},
+  {bg:'#FFFDE7',text:'#F57F17',border:'#FFF176'},
+  {bg:'#EDE7F6',text:'#311B92',border:'#9575CD'},
+];
+let movies=[];
+
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200);}
+function updateSaveBar(){
+  const dot=document.getElementById('saveDot'),st=document.getElementById('saveStatus');
+  if(movies.length===0){dot.className='dot';st.textContent='저장된 데이터 없음 — 내보내기 후 복사해두면 다음에 불러올 수 있어요';}
+  else{dot.className='dot saved';st.textContent=`${movies.length}편 입력됨 — 새로고침 전에 내보내기로 저장해두세요`;}
+}
+
+function openExport(){
+  const data=JSON.stringify({v:1,movies:movies.map(m=>({title:m.title,dur:m.dur,sessions:m.sessions}))},null,2);
+  document.getElementById('exportText').value=data;
+  document.getElementById('exportModal').style.display='flex';
+}
+function copyExport(){
+  const ta=document.getElementById('exportText');ta.select();
+  try{document.execCommand('copy');toast('복사됐어요! 메모장에 붙여넣어 저장해두세요 💾');}
+  catch(e){toast('Ctrl+C로 복사해주세요');}
+}
+function openImport(){document.getElementById('importText').value='';document.getElementById('importModal').style.display='flex';}
+function closeModals(){document.getElementById('exportModal').style.display='none';document.getElementById('importModal').style.display='none';}
+
+function doImport(){
+  const raw=document.getElementById('importText').value.trim();
+  if(!raw){toast('텍스트를 붙여넣어주세요');return;}
+  let data;
+  try{data=JSON.parse(raw);}catch(e){toast('형식이 올바르지 않아요. 내보내기한 텍스트를 그대로 붙여넣어주세요');return;}
+  if(!data.movies||!Array.isArray(data.movies)){toast('데이터 형식 오류');return;}
+  let added=0,merged=0;
+  data.movies.forEach((m,i)=>{
+    const existing=movies.find(x=>x.title===m.title);
+    if(existing){
+      if(m.dur!=null)existing.dur=m.dur;
+      m.sessions.forEach(s=>{if(!existing.sessions.find(e=>e.date===s.date&&e.time===s.time)){existing.sessions.push(s);merged++;}});
+    }else{
+      movies.push({title:m.title,dur:m.dur||null,sessions:m.sessions||[],color:COLORS[(movies.length+i)%COLORS.length]});
+      added++;
+    }
+  });
+  closeModals();
+  render();
+  toast(`불러오기 완료 — ${added}편 추가, ${merged}회차 병합`);
+}
+
+function toMins(t){const[h,m]=t.split(':').map(Number);return h*60+m;}
+function addMins(t,d){let v=toMins(t)+d;return `${String(Math.floor(v/60)).padStart(2,'0')}:${String(v%60).padStart(2,'0')}`;}
+
+function parseSchedule(text){
+  const sessions=[];
+  const blocks=text.split(/(?=\d{4}\s*[.\-\/]\s*\d{1,2}\s*[.\-\/]\s*\d{1,2})/);
+  blocks.forEach(block=>{
+    const dm=block.match(/(\d{4})\s*[.\-\/]\s*0?(\d{1,2})\s*[.\-\/]\s*0?(\d{1,2})/);
+    const tm=block.match(/\b(\d{1,2}):(\d{2})\b/);
+    const cm=block.match(/\b(\d{3,4})\b/);
+    const gv=/\bGV\b/.test(block);
+    if(dm&&tm){
+      const dateStr=`${parseInt(dm[2])}/${parseInt(dm[3])}`;
+      const timeStr=`${String(parseInt(tm[1])).padStart(2,'0')}:${tm[2]}`;
+      if(!sessions.find(s=>s.date===dateStr&&s.time===timeStr))sessions.push({date:dateStr,time:timeStr,code:cm?cm[0]:null,gv});
+    }
+  });
+  if(sessions.length===0){
+    const lines=text.split('\n').map(l=>l.trim()).filter(Boolean);
+    let curDate=null,curTime=null,curCode=null,curGV=false;
+    lines.forEach(l=>{
+      const dm=l.match(/(\d{4})\s*[.\-\/]\s*0?(\d{1,2})\s*[.\-\/]\s*0?(\d{1,2})/);
+      if(dm){if(curDate&&curTime)sessions.push({date:curDate,time:curTime,code:curCode,gv:curGV});curDate=`${parseInt(dm[2])}/${parseInt(dm[3])}`;curTime=null;curCode=null;curGV=false;return;}
+      const tm=l.match(/^(\d{1,2}):(\d{2})$/);
+      if(tm&&curDate){curTime=`${String(parseInt(tm[1])).padStart(2,'0')}:${tm[2]}`;return;}
+      if(/^GV$/.test(l))curGV=true;
+      const cm=l.match(/^(\d{3,4})$/);
+      if(cm&&curDate&&!curCode)curCode=l;
+    });
+    if(curDate&&curTime)sessions.push({date:curDate,time:curTime,code:curCode,gv:curGV});
+  }
+  return sessions;
+}
+
+function parseAndAdd(){
+  const title=document.getElementById('movieTitle').value.trim();
+  const durVal=document.getElementById('movieDur').value.trim();
+  const raw=document.getElementById('rawInput').value.trim();
+  if(!title){toast('영화 제목을 입력해주세요');return;}
+  if(!raw){toast('상영 일정 텍스트를 붙여넣어 주세요');return;}
+  const dur=durVal?parseInt(durVal):null;
+  const sessions=parseSchedule(raw);
+  if(sessions.length===0){toast('상영 일정 파싱 실패 — 날짜(2026. 05. 02)와 시간(14:30) 형식을 확인해주세요');return;}
+  const existing=movies.find(m=>m.title===title);
+  if(existing){if(dur!=null)existing.dur=dur;sessions.forEach(s=>{if(!existing.sessions.find(e=>e.date===s.date&&e.time===s.time))existing.sessions.push(s);});}
+  else movies.push({title,sessions,dur,color:COLORS[movies.length%COLORS.length]});
+  document.getElementById('movieTitle').value='';
+  document.getElementById('movieDur').value='';
+  document.getElementById('rawInput').value='';
+  render();
+  toast(`'${title}' 추가됐어요 (${sessions.length}회 상영)`);
+}
+
+function removeMovie(idx){const t=movies[idx].title;movies.splice(idx,1);render();toast(`'${t}' 삭제됐어요`);}
+function clearAll(){if(movies.length===0)return;if(!confirm('입력된 영화를 모두 삭제할까요?'))return;movies=[];render();}
+function getAllDates(){
+  const s=new Set();movies.forEach(m=>m.sessions.forEach(ss=>s.add(ss.date)));
+  return [...s].sort((a,b)=>{const[am,ad]=a.split('/').map(Number),[bm,bd]=b.split('/').map(Number);return am!==bm?am-bm:ad-bd;});
+}
+
+function overlaps(aTitle,aTime,bTitle,bTime){
+  const am=movies.find(m=>m.title===aTitle),bm=movies.find(m=>m.title===bTitle);
+  if(!am||!bm)return false;
+  const as=toMins(aTime),ae=am.dur?as+am.dur:as+1;
+  const bs=toMins(bTime),be=bm.dur?bs+bm.dur:bs+1;
+  return as<be&&bs<ae;
+}
+
+function findBestCombinations(){
+  const results=[];
+  function bt(idx,current){
+    if(idx===movies.length){if(current.length>0)results.push([...current]);return;}
+    const m=movies[idx];
+    bt(idx+1,current);
+    for(const s of m.sessions){
+      const slot={title:m.title,date:s.date,time:s.time,gv:s.gv,code:s.code,color:m.color,dur:m.dur};
+      if(!current.some(c=>c.date===slot.date&&overlaps(slot.title,slot.time,c.title,c.time))){current.push(slot);bt(idx+1,current);current.pop();}
+    }
+  }
+  bt(0,[]);
+  results.sort((a,b)=>{
+    if(b.length!==a.length)return b.length-a.length;
+    const gvA=a.filter(s=>s.gv).length,gvB=b.filter(s=>s.gv).length;
+    if(gvB!==gvA)return gvB-gvA;
+    const spread=arr=>{const cnt={};arr.forEach(s=>{cnt[s.date]=(cnt[s.date]||0)+1;});const v=Object.values(cnt);const avg=v.reduce((a,b)=>a+b,0)/v.length;return v.reduce((s,x)=>s+(x-avg)**2,0);};
+    return spread(a)-spread(b);
+  });
+  const unique=[];const seen=new Set();
+  for(const r of results){const key=r.map(s=>`${s.title}@${s.date}${s.time}`).sort().join('|');if(!seen.has(key)){seen.add(key);unique.push(r);}}
+  return unique.slice(0,5);
+}
+
+function detectConflicts(dates){
+  const conflicts=[];
+  dates.forEach(d=>{
+    const slots=[];movies.forEach(m=>{const s=m.sessions.find(ss=>ss.date===d);if(s)slots.push({title:m.title,time:s.time});});
+    for(let i=0;i<slots.length;i++)for(let j=i+1;j<slots.length;j++){
+      const a=slots[i],b=slots[j];
+      if(overlaps(a.title,a.time,b.title,b.time)){const key=`${d}-${[a.title,b.title].sort().join('|')}`;if(!conflicts.find(c=>c.key===key))conflicts.push({key,date:d,a:a.title,b:b.title,aTime:a.time,bTime:b.time});}
+    }
+  });
+  return conflicts;
+}
+
+function render(){
+  const ml=document.getElementById('moviesList');ml.innerHTML='';
+  if(movies.length===0){document.getElementById('schedWrap').style.display='none';updateSaveBar();return;}
+  movies.forEach((m,i)=>{
+    const el=document.createElement('div');el.className='movie-entry';el.style.borderLeftColor=m.color.border;
+    el.innerHTML=`<div class="movie-dot" style="background:${m.color.border}"></div><span class="title">${m.title}</span><span class="meta">${m.sessions.length}회 상영${m.dur?` · ${m.dur}분`:'  · 상영시간 미입력'}</span><button class="rm-btn" onclick="removeMovie(${i})">✕</button>`;
+    ml.appendChild(el);
+  });
+  renderTable();renderOptimal();
+  document.getElementById('schedWrap').style.display='block';
+  updateSaveBar();
+}
+
+function renderTable(){
+  const dates=getAllDates();
+  const conflicts=detectConflicts(dates);
+  const conflictKeys=new Set(conflicts.flatMap(c=>[`${c.date}|${c.a}`,`${c.date}|${c.b}`]));
+  const head=document.getElementById('schedHead'),body=document.getElementById('schedBody');
+  const legend=document.getElementById('legend'),cbox=document.getElementById('conflictBox');
+  head.innerHTML='';body.innerHTML='';legend.innerHTML='';cbox.innerHTML='';
+  const dayNames={1:'월',2:'화',3:'수',4:'목',5:'금',6:'토',0:'일'};
+  const tr=document.createElement('tr');tr.innerHTML=`<th>영화 / 날짜</th>`;
+  dates.forEach(d=>{const[m2,d2]=d.split('/').map(Number);const dt=new Date(2026,m2-1,d2);const dn=dayNames[dt.getDay()];const we=dt.getDay()===0||dt.getDay()===6;tr.innerHTML+=`<th style="${we?'color:#E07B39':''}">${d}<br><span style="font-size:10px;font-weight:400">(${dn})</span></th>`;});
+  head.appendChild(tr);
+  movies.forEach(m=>{
+    const tr2=document.createElement('tr');
+    let cells=`<td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${m.color.border};margin-right:5px;vertical-align:middle"></span><span style="font-size:12px;color:var(--color-text-primary)">${m.title}</span></td>`;
+    dates.forEach(d=>{
+      const s=m.sessions.find(ss=>ss.date===d);
+      if(s){const ic=conflictKeys.has(`${d}|${m.title}`);const et=m.dur?addMins(s.time,m.dur):null;
+        cells+=`<td><div class="slot${ic?' slot-conflict':''}" style="background:${m.color.bg};color:${m.color.text};border:0.5px solid ${m.color.border}"><div class="s-time">${s.time}</div>${et?`<div class="s-end">~ ${et}</div>`:''} ${s.gv?'<div class="s-gv">GV</div>':''} ${s.code?`<div class="s-code">#${s.code}</div>`:''}</div></td>`;
+      }else cells+=`<td style="color:var(--color-border-tertiary);font-size:11px">—</td>`;
+    });
+    tr2.innerHTML=cells;body.appendChild(tr2);
+  });
+  movies.forEach(m=>{const p=document.createElement('div');p.className='pill';p.style.cssText=`background:${m.color.bg};color:${m.color.text};border:0.5px solid ${m.color.border}`;p.innerHTML=`<span style="width:7px;height:7px;border-radius:50%;background:${m.color.border}"></span>${m.title}${m.dur?` (${m.dur}분)`:''}`;legend.appendChild(p);});
+  if(conflicts.length){const lines=conflicts.map(c=>`<strong>${c.date}</strong> — ${c.a} ${c.aTime}~ 와 ${c.b} ${c.bTime}~ 겹침`);cbox.innerHTML=`<div class="conflict-box">⚠ 시간 충돌 ${conflicts.length}건<br>${lines.join('<br>')}</div>`;}
+}
+
+function renderOptimal(){
+  const container=document.getElementById('optCards');container.innerHTML='';
+  const best=findBestCombinations();
+  if(best.length===0){container.innerHTML=`<div class="no-opt">영화를 추가하면 최적 조합을 계산합니다</div>`;return;}
+  const rankStyle=[
+    {bg:'#FFF8E1',text:'#F57F17',border:'#FFD54F',label:'1위'},
+    {bg:'#F5F5F5',text:'#424242',border:'#BDBDBD',label:'2위'},
+    {bg:'#FBE9E7',text:'#BF360C',border:'#FFAB91',label:'3위'},
+    {bg:'#F3E5F5',text:'#4A148C',border:'#CE93D8',label:'4위'},
+    {bg:'#E8F5E9',text:'#1B5E20',border:'#A5D6A7',label:'5위'},
+  ];
+  const dayNames={1:'월',2:'화',3:'수',4:'목',5:'금',6:'토',0:'일'};
+  best.forEach((combo,ri)=>{
+    const rs=rankStyle[ri]||rankStyle[4];
+    const byDate={};combo.forEach(s=>{if(!byDate[s.date])byDate[s.date]=[];byDate[s.date].push(s);});
+    Object.values(byDate).forEach(arr=>arr.sort((a,b)=>toMins(a.time)-toMins(b.time)));
+    const dates=Object.keys(byDate).sort((a,b)=>{const[am,ad]=a.split('/').map(Number),[bm,bd]=b.split('/').map(Number);return am!==bm?am-bm:ad-bd;});
+    const gvCount=combo.filter(s=>s.gv).length;
+    const totalMins=combo.reduce((s,slot)=>{const m=movies.find(x=>x.title===slot.title);return s+(m&&m.dur?m.dur:0);},0);
+    const card=document.createElement('div');card.className='opt-card';
+    const bodyId=`ob-${ri}`,arrowId=`oa-${ri}`;
+    let daysHtml='';
+    dates.forEach(d=>{
+      const[m2,d2]=d.split('/').map(Number);const dt=new Date(2026,m2-1,d2);const dn=dayNames[dt.getDay()];
+      const slotsHtml=byDate[d].map(s=>{const mc=movies.find(x=>x.title===s.title);const et=mc&&mc.dur?addMins(s.time,mc.dur):null;
+        return `<div class="opt-slot" style="background:${s.color.bg};color:${s.color.text};border:0.5px solid ${s.color.border}"><div class="os-time">${s.time}${et?`<span style="font-size:10px;opacity:.7"> ~ ${et}</span>`:''}</div><div class="os-title">${s.title}</div>${s.gv?'<div class="os-gv">GV</div>':''}</div>`;
+      }).join('');
+      daysHtml+=`<div class="opt-day"><div class="opt-day-label">${d} (${dn})</div><div class="opt-slots">${slotsHtml}</div></div>`;
+    });
+    card.innerHTML=`<div class="opt-card-header" onclick="toggleOpt('${bodyId}','${arrowId}')"><div class="opt-rank" style="background:${rs.bg};color:${rs.text};border:0.5px solid ${rs.border}">${rs.label}</div><div class="opt-info"><div class="opt-name">${combo.length}편 관람 가능${gvCount>0?` · GV ${gvCount}편`:''}</div><div class="opt-meta">${combo.map(s=>s.title).join(', ')}${totalMins>0?` · 총 ${Math.floor(totalMins/60)}시간 ${totalMins%60}분`:''}</div></div><div class="opt-badge" style="background:${rs.bg};color:${rs.text};border:0.5px solid ${rs.border}">${dates.length}일 일정</div><span class="toggle-arrow" id="${arrowId}">▼</span></div><div class="opt-body" id="${bodyId}">${daysHtml}</div>`;
+    container.appendChild(card);
+  });
+  const first=document.getElementById('ob-0'),arrow=document.getElementById('oa-0');
+  if(first){first.classList.add('open');arrow.classList.add('open');}
+}
+
+function toggleOpt(bodyId,arrowId){const b=document.getElementById(bodyId),a=document.getElementById(arrowId);b.classList.toggle('open');a.classList.toggle('open');}
+</script>
